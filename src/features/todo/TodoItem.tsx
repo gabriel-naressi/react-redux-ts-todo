@@ -6,7 +6,7 @@ interface TodoProps {
 }
 
 const TodoItem = ({ todo } : TodoProps) => (
-  <li>{todo.description}</li>
+  <li>{todo.title}</li>
 );
 
 export default TodoItem;
