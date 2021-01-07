@@ -1,12 +1,11 @@
 import React from 'react';
-import NewTodo from './features/todo/NewTodo';
-import TodoList from './features/todo/TodoList';
+import { BrowserRouter as Router } from 'react-router-dom'
+import routes from './routes';
 
 const App = () => (
-  <div>
-    <NewTodo />
-    <TodoList />
-  </div>
+  <Router>
+    {routes}
+  </Router>
 );
 
 export default App;
