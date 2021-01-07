@@ -1,8 +1,16 @@
-import axios, { AxiosResponse } from "axios";
-import { Todo } from "../../commons/types";
+import { Todo } from "../../commons/types"
 
 export default class TodoService {
-  getTodos = (): Promise<AxiosResponse<Todo[]>> => {
-    return axios.get('https://jsonplaceholder.typicode.com/todos');
+  getTodos = (): Promise<Response> => {
+    return fetch("https://jsonplaceholder.typicode.com/todos")
+  }
+  saveTodo = (todo: Todo): Promise<Response> => {
+    return fetch("https://jsonplaceholder.typicode.com/todos", {
+      method: "POST",
+      body: JSON.stringify(todo),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
   }
 }
