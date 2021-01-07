@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-//import { todoAdded, addAssync, fetchTodos } from '../../features/todo/todoSlice'
-import { fetchTodos } from '../../features/todo/todoSlice'
+import { RootState } from '../../app/store';
+import { fetchTodos, todoAdded, saveTodo } from '../../features/todo/todoSlice'
 
 const NewTodo = () => {
+  const { creating } = useSelector((state: RootState) => state.todo);
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>('');
 
@@ -11,22 +13,33 @@ const NewTodo = () => {
     dispatch(fetchTodos());
   }, [dispatch]);
 
-  /*const addSync = () => {
-    dispatch(todoAdded(value));
+  const addAssynchronously = () => {
+    dispatch(saveTodo({
+      userId: 1,
+      id: Math.random(),
+      title: value,
+      completed: false
+    }))
     setValue('');
   }
 
-  const addAssynchronously = () => {
-    dispatch(addAssync(value));
+  const addSync = () => {
+    dispatch(todoAdded({
+      userId: 1,
+      id: Math.random(),
+      title: value,
+      completed: false
+    }))
     setValue('');
-  }*/
+  }
 
   return (
     <form onSubmit={(e) => { e.preventDefault(); }}>
       Valor: {value} <br/>
       <input type="text" onChange={e => setValue(e.target.value)} value={value} />
-      {/*<button onClick={() => addSync()}>Adicionar</button>
-      <button onClick={() => addAssynchronously()}>Adicionar de maneira assíncrona</button>*/}
+      {creating ? <p>Creating...</p> : <></>}
+      <button onClick={() => addSync()}>Adicionar</button>
+      <button onClick={() => addAssynchronously()}>Adicionar de maneira assíncrona</button>
     </form>
   )
 
