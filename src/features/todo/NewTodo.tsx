@@ -5,7 +5,7 @@ import { RootState } from '../../app/store';
 import { fetchTodos, todoAdded, saveTodo } from '../../features/todo/todoSlice'
 
 const NewTodo = () => {
-  const { creating } = useSelector((state: RootState) => state.todo);
+  const creatingTodo = useSelector((state: RootState) => state.todo.creating);
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>('');
 
@@ -37,7 +37,7 @@ const NewTodo = () => {
     <form onSubmit={(e) => { e.preventDefault(); }}>
       Valor: {value} <br/>
       <input type="text" onChange={e => setValue(e.target.value)} value={value} />
-      {creating ? <p>Creating...</p> : <></>}
+      {creatingTodo ? <p>Creating...</p> : <></>}
       <button onClick={() => addSync()}>Adicionar</button>
       <button onClick={() => addAssynchronously()}>Adicionar de maneira assíncrona</button>
     </form>
