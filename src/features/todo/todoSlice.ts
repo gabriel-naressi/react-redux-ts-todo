@@ -2,15 +2,15 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
-} from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import { Todo } from '../../commons/types';
-import TodoService from '../../services/todo/TodoService';
+} from '@reduxjs/toolkit'
+import { RootState } from '../../app/store'
+import { Todo } from '../../commons/types'
+import TodoService from '../../services/todo/TodoService'
 
-const service = new TodoService();
-const todosAdapter = createEntityAdapter<Todo>();
+const service = new TodoService()
+const todosAdapter = createEntityAdapter<Todo>()
 
-type TodoState = {
+interface TodoState {
   entities: Todo[],
   status: string,
   creating: boolean
@@ -20,7 +20,7 @@ const initialState = todosAdapter.getInitialState({
   entities: {},
   status: 'idle',
   creating: false,
-} as TodoState );
+} as TodoState )
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -28,18 +28,18 @@ const initialState = todosAdapter.getInitialState({
 // code can then be executed and other actions can be dispatched
 /*export const addAssync = (title: string) : AppThunk => dispatch => {
   setTimeout(() => {
-    dispatch(add(title));
-  }, 2000);
+    dispatch(add(title))
+  }, 2000)
 }*/
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
-  const response = await service.getTodos();
-  return (await response.json());
+  const response = await service.getTodos()
+  return (await response.json())
 })
 
 export const saveTodo = createAsyncThunk('todos/saveNewTodo', async (todo: Todo)  => {
-  const response = await service.saveTodo(todo);
-  return (await response.json());
+  const response = await service.saveTodo(todo)
+  return (await response.json())
 })
 
 export const todoSlice = createSlice({
@@ -58,16 +58,16 @@ export const todoSlice = createSlice({
         state.status = 'idle'
       })
       .addCase(saveTodo.pending, (state, action) => {
-        state.creating = true;
+        state.creating = true
       })
       .addCase(saveTodo.fulfilled, (state, action) => {
-        todosAdapter.addOne(state, action.payload);
-        state.creating = false;
+        todosAdapter.addOne(state, action.payload)
+        state.creating = false
       })
   }
-});
+})
 
-export const { todoAdded } = todoSlice.actions;
+export const { todoAdded } = todoSlice.actions
 
 //selectors.selectAll
 // Alias selectTodos for 'selectAll' created selector
@@ -85,7 +85,7 @@ export const selectors = todosAdapter.getSelectors<RootState>(
 
 And the use is:
   import { selectors } from '../../features/todo/todoSlice'
-  const todos = useSelector(selectors.selectAll);
+  const todos = useSelector(selectors.selectAll)
 */
 
-export default todoSlice.reducer;
+export default todoSlice.reducer

@@ -2,7 +2,7 @@ import React from 'react'
 import { NavBar } from '../components/NavBar'
 import { Route, Switch } from 'react-router'
 import { Home }  from '../components/Home'
-import { Counter }  from '../components/Counter'
+import { Counter }  from '../features/counter/Counter'
 
 const routes = (
   <div>

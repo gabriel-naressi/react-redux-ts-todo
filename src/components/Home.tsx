@@ -1,6 +1,6 @@
 import React from 'react'
 import NewTodo from '../features/todo/NewTodo'
-import TodoList from '../features/todo/TodoList';
+import TodoList from '../features/todo/TodoList'
 
 export const Home = () => (
   <div>
