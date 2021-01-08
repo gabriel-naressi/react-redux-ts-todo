@@ -1,12 +1,12 @@
 import React from 'react'
 import TodoItem from './TodoItem'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../app/store'
+import { todoStatus } from '../todo/todoSlice'
 import { TodoListProps } from '../containers/VisibleTodos'
 import { Todo } from '../../commons/types'
 
 const TodoList = ({ visibleTodos, onClickOnItem }: TodoListProps) => {
-  const loadingTodos = useSelector((state: RootState) => state.todo.status)
+  const loadingTodos = useSelector(todoStatus)
   //const todoCount = useSelector((state: RootState) => Object.keys(state.todo.entities).length)
   //A linha acima também pode ser escrita assim:
   //const { status } = useSelector((state: RootState) => state.todo.status)

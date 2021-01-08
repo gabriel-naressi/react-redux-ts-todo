@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { RootState } from '../../app/store'
-import { fetchTodos, todoAdded, saveTodo, todoWasCreated, reset} from './todoSlice'
+import { fetchTodos, todoAdded, saveTodo, todoWasCreated, reset, creatingTodo} from './todoSlice'
 
 const NewTodo = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const creatingTodo = useSelector((state: RootState) => state.todo.creating)
+  const creating = useSelector(creatingTodo)
   const created = useSelector(todoWasCreated)
 
   const [todoText, setTodoText] = useState<string>('')
@@ -50,7 +50,7 @@ const NewTodo = () => {
     <form onSubmit={e => { e.preventDefault() }}>
       Valor: {todoText} <br/>
       <input type="text" onChange={onChange} value={todoText} />
-      {creatingTodo ? <p>Creating...</p> : <></>}
+      {creating ? <p>Creating...</p> : <></>}
       <button onClick={() => addSync()}>Adicionar</button>
       <button onClick={() => addAssynchronously()}>Adicionar de maneira assíncrona</button>
     </form>

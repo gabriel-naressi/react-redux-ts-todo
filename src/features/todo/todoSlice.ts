@@ -83,6 +83,8 @@ export const {
 )
 
 export const todoWasCreated = (state: RootState) => state.todo.created;
+export const creatingTodo = (state: RootState) => state.todo.creating;
+export const todoStatus = (state: RootState) => state.todo.status;
 
 /*This export also coulde be:
 
