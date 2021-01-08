@@ -2,7 +2,6 @@ import { nanoid } from '@reduxjs/toolkit'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { RootState } from '../../app/store'
 import { fetchTodos, todoAdded, saveTodo, todoWasCreated, reset, creatingTodo} from './todoSlice'
 
 const NewTodo = () => {
@@ -24,7 +23,7 @@ const NewTodo = () => {
       history.push('/counter')
       dispatch(reset())
     }
-  }, [created])
+  }, [dispatch, history, created])
 
   const addAssynchronously = () => {
     dispatch(saveTodo({
