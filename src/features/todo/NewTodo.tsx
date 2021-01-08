@@ -8,7 +8,9 @@ import { fetchTodos, todoAdded, saveTodo } from '../../features/todo/todoSlice'
 const NewTodo = () => {
   const creatingTodo = useSelector((state: RootState) => state.todo.creating)
   const dispatch = useDispatch()
-  const [value, setValue] = useState<string>('')
+
+  const [todoText, setTodoText] = useState<string>('')
+  const onChange = (e : React.FormEvent<HTMLInputElement>) => setTodoText(e.currentTarget.value)
 
   useEffect(() => {
     dispatch(fetchTodos())
@@ -18,26 +20,26 @@ const NewTodo = () => {
     dispatch(saveTodo({
       userId: 1,
       id: nanoid(),
-      title: value,
+      title: todoText,
       completed: false
     }))
-    setValue('')
+    setTodoText('')
   }
 
   const addSync = () => {
     dispatch(todoAdded({
       userId: 1,
       id: nanoid(),
-      title: value,
+      title: todoText,
       completed: false
     }))
-    setValue('')
+    setTodoText('')
   }
 
   return (
     <form onSubmit={e => { e.preventDefault() }}>
-      Valor: {value} <br/>
-      <input type="text" onChange={e => setValue(e.target.value)} value={value} />
+      Valor: {todoText} <br/>
+      <input type="text" onChange={onChange} value={todoText} />
       {creatingTodo ? <p>Creating...</p> : <></>}
       <button onClick={() => addSync()}>Adicionar</button>
       <button onClick={() => addAssynchronously()}>Adicionar de maneira assíncrona</button>

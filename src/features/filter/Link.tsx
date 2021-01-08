@@ -1,9 +1,26 @@
 import React from 'react'
+import { connect, ConnectedProps } from 'react-redux'
+import { RootState } from '../../app/store'
+import { setVisibilityFilter } from './filterSlice'
 
-interface LinkProps {
-  active: boolean;
+interface OwnProps {
+  filter: string
+}
+
+const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
+  active: ownProps.filter === state.visibilityFilter
+})
+
+const mapDispatchToProps = { setVisibilityFilter }
+
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+interface LinkProps extends PropsFromRedux {
   children: React.ReactNode;
-  setVisibilityFilter: (filter: string) => void;
   filter: string;
 }
 
@@ -19,4 +36,4 @@ const Link = ({ active, children, setVisibilityFilter, filter }: LinkProps) => (
   </button>
 )
 
-export default Link
+export default connector(Link)

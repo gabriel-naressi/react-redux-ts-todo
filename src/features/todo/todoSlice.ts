@@ -2,6 +2,7 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
+  PayloadAction
 } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 import { Todo } from '../../commons/types'
@@ -49,7 +50,7 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     todoAdded: todosAdapter.addOne,
-    toggleTodo(state, action) {
+    toggleTodo(state, action: PayloadAction<string>) {
       const todo = state.entities.find((todo : Todo) => todo.id === action.payload)
       if (todo) {
         todo.completed = !todo.completed
@@ -61,14 +62,14 @@ export const todoSlice = createSlice({
       .addCase(fetchTodos.pending, (state, action) => {
         state.status = 'loading'
       })
-      .addCase(fetchTodos.fulfilled, (state, action) => {
+      .addCase(fetchTodos.fulfilled, (state, action: PayloadAction<Todo[]>) => {
         todosAdapter.setAll(state, action.payload)
         state.status = 'idle'
       })
       .addCase(saveTodo.pending, (state, action) => {
         state.creating = true
       })
-      .addCase(saveTodo.fulfilled, (state, action) => {
+      .addCase(saveTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
         todosAdapter.addOne(state, action.payload)
         state.creating = false
       })
