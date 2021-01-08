@@ -1,38 +1,26 @@
 import React from 'react'
 import TodoItem from './TodoItem'
-import { Todo } from '../../commons/types'
+import { selectVisibleTodos } from '../filter/filterSlice'
+import { useSelector } from 'react-redux';
+import { RootState } from "../../app/store";
 
-/*
 const TodoList = () => {
-  //const loadingTodos = useSelector((state: RootState) => state.todo.status)
+  const loadingTodos = useSelector((state: RootState) => state.todo.status)
+  const todos = useSelector(selectVisibleTodos)
   //const todoCount = useSelector((state: RootState) => Object.keys(state.todo.entities).length)
   //A linha acima também pode ser escrita assim:
   //const { status } = useSelector((state: RootState) => state.todo.status)
-  const todos = useSelector(selectTodos)
+  //const todos = useSelector(selectTodos)
 
   return (
     <>
-      Quantidade de tarefas sendo exibidas: {todoCount}
-      <Filter />
-      loadingTodos !== 'idle' ? <p>Loading...</p> : <></>
+      {loadingTodos !== 'idle' ? <p>Loading...</p> : <></>}
       <ul>
-        {todos.map(todo => <TodoItem todo={todo} key={todo.id} />)}
+        { todos.map(todo => <TodoItem todo={todo} key={todo.id} />) }
       </ul>
     </>
   )
 
-}*/
-
-interface TodoListProps {
-  visibleTodos: (Todo | undefined)[]
 }
-
-const TodoList = ({ visibleTodos, toggleTodo }: any) => (
-  <ul>
-    {visibleTodos.map((todo : Todo) => (
-      <TodoItem key={todo.id} todo={todo} onClick={() => toggleTodo(todo.id)} />
-    ))}
-  </ul>
-)
 
 export default TodoList

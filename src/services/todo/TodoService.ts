@@ -2,7 +2,7 @@ import { Todo } from "../../commons/types"
 
 export default class TodoService {
   getTodos = (): Promise<Response> => {
-    return fetch("https://jsonplaceholder.typicode.com/todos")
+    return fetch("https://jsonplaceholder.typicode.com/todos?userId=1")
   }
   saveTodo = (todo: Todo): Promise<Response> => {
     return fetch("https://jsonplaceholder.typicode.com/todos", {

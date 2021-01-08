@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState } from '../../app/store'
-import { fetchTodos, todoAdded, saveTodo } from '../../features/todo/todoSlice'
+import { fetchTodos, todoAdded, saveTodo } from './todoSlice'
 
 const NewTodo = () => {
   const creatingTodo = useSelector((state: RootState) => state.todo.creating)

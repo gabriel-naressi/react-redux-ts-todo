@@ -14,29 +14,18 @@ const todosAdapter = createEntityAdapter<Todo>()
 interface TodoState {
   entities: Todo[],
   status: string,
-  creating: boolean
+  creating: boolean,
 }
 
 const initialState = todosAdapter.getInitialState({
   entities: {},
   status: 'idle',
   creating: false,
-} as TodoState )
-
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched
-/*export const addAssync = (title: string) : AppThunk => dispatch => {
-  setTimeout(() => {
-    dispatch(add(title))
-  }, 2000)
-}*/
+} as TodoState)
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
   const response = await service.getTodos()
-  //TODO
-  //return (await response.json()) as Returned
+  //TODO return (await response.json()) as Returned
   return (await response.json())
 })
 
@@ -55,7 +44,7 @@ export const todoSlice = createSlice({
       if (todo) {
         todo.completed = !todo.completed
       }
-    }
+    },
   },
   extraReducers: builder => {
     builder
