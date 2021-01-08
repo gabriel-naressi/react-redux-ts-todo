@@ -2,8 +2,8 @@ import React from 'react'
 import TodoItem from './TodoItem'
 import { useSelector } from 'react-redux'
 import { todoStatus } from '../todo/todoSlice'
-import { TodoListProps } from '../containers/VisibleTodos'
-import { Todo } from '../../commons/types'
+import { TodoListProps } from '../../containers/VisibleTodos'
+import { Todo } from './todoSlice'
 
 const TodoList = ({ visibleTodos, onClickOnItem }: TodoListProps) => {
   const loadingTodos = useSelector(todoStatus)

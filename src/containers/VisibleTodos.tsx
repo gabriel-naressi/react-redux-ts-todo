@@ -1,8 +1,8 @@
 import { connect, ConnectedProps } from 'react-redux'
-import { RootState } from '../../app/store'
-import TodoList from '../todo/TodoList'
-import { selectVisibleTodos } from '../filter/filterSlice'
-import { todoDeleted } from '../todo/todoSlice'
+import { RootState } from '../app/store'
+import TodoList from '../features/todo/TodoList'
+import { selectVisibleTodos } from '../features/filter/filterSlice'
+import { todoDeleted } from '../features/todo/todoSlice'
 
 const mapState = (state: RootState) => ({
   visibleTodos: selectVisibleTodos(state)

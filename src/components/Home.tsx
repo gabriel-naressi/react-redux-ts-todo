@@ -1,7 +1,7 @@
 import React from 'react'
 import NewTodo from '../features/todo/NewTodo'
 import Footer from '../features/filter/Footer'
-import VisibleTodos from '../features/containers/VisibleTodos'
+import VisibleTodos from '../containers/VisibleTodos'
 
 const Home = () => (
   <div>

@@ -5,11 +5,17 @@ import {
   PayloadAction
 } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { Todo } from '../../commons/types'
 import TodoService from '../../services/todo/TodoService'
 
 const service = new TodoService()
 const todosAdapter = createEntityAdapter<Todo>()
+
+export type Todo = {
+  userId?: number,
+  id: string,
+  title: string,
+  completed: Boolean
+}
 
 interface TodoState {
   entities: Todo[],

@@ -1,4 +1,4 @@
-import { Todo } from "../../commons/types"
+import { Todo } from '../../features/todo/todoSlice'
 
 export default class TodoService {
   getTodos = (): Promise<Response> => {

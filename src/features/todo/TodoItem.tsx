@@ -1,5 +1,5 @@
 import React from 'react'
-import { Todo } from '../../commons/types'
+import { Todo } from './todoSlice'
 
 interface TodoItemProps {
   todo: Todo,
