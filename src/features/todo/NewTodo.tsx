@@ -1,13 +1,16 @@
 import { nanoid } from '@reduxjs/toolkit'
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { RootState } from '../../app/store'
-import { fetchTodos, todoAdded, saveTodo } from './todoSlice'
+import { fetchTodos, todoAdded, saveTodo, todoWasCreated, reset} from './todoSlice'
 
 const NewTodo = () => {
-  const creatingTodo = useSelector((state: RootState) => state.todo.creating)
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  const creatingTodo = useSelector((state: RootState) => state.todo.creating)
+  const created = useSelector(todoWasCreated)
 
   const [todoText, setTodoText] = useState<string>('')
   const onChange = (e : React.FormEvent<HTMLInputElement>) => setTodoText(e.currentTarget.value)
@@ -15,6 +18,13 @@ const NewTodo = () => {
   useEffect(() => {
     dispatch(fetchTodos())
   }, [dispatch])
+
+  useEffect(() => {
+    if (created) {
+      history.push('/counter')
+      dispatch(reset())
+    }
+  }, [created])
 
   const addAssynchronously = () => {
     dispatch(saveTodo({
