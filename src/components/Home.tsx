@@ -1,11 +1,15 @@
 import React from 'react'
 import NewTodo from '../features/todo/NewTodo'
-import TodoList from '../features/todo/TodoList'
+import Footer from '../features/filter/Footer'
+import VisibleTodoList from '../containers/VisibleTodoList'
 
-export const Home = () => (
+const Home = () => (
   <div>
     <p>Home page</p>
+    <Footer />
     <NewTodo />
-    <TodoList />
+    <VisibleTodoList />
   </div>
 )
+
+export default Home

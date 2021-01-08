@@ -34,6 +34,8 @@ const initialState = todosAdapter.getInitialState({
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
   const response = await service.getTodos()
+  //TODO
+  //return (await response.json()) as Returned
   return (await response.json())
 })
 
@@ -47,6 +49,12 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     todoAdded: todosAdapter.addOne,
+    toggleTodo(state, action) {
+      const todo = state.entities.find((todo : Todo) => todo.id === action.payload)
+      if (todo) {
+        todo.completed = !todo.completed
+      }
+    }
   },
   extraReducers: builder => {
     builder
@@ -67,7 +75,7 @@ export const todoSlice = createSlice({
   }
 })
 
-export const { todoAdded } = todoSlice.actions
+export const { todoAdded, toggleTodo } = todoSlice.actions
 
 //selectors.selectAll
 // Alias selectTodos for 'selectAll' created selector

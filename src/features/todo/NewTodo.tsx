@@ -1,3 +1,4 @@
+import { nanoid } from '@reduxjs/toolkit'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -16,7 +17,7 @@ const NewTodo = () => {
   const addAssynchronously = () => {
     dispatch(saveTodo({
       userId: 1,
-      id: Math.random(),
+      id: nanoid(),
       title: value,
       completed: false
     }))
@@ -26,7 +27,7 @@ const NewTodo = () => {
   const addSync = () => {
     dispatch(todoAdded({
       userId: 1,
-      id: Math.random(),
+      id: nanoid(),
       title: value,
       completed: false
     }))
@@ -34,7 +35,7 @@ const NewTodo = () => {
   }
 
   return (
-    <form>
+    <form onSubmit={e => { e.preventDefault() }}>
       Valor: {value} <br/>
       <input type="text" onChange={e => setValue(e.target.value)} value={value} />
       {creatingTodo ? <p>Creating...</p> : <></>}

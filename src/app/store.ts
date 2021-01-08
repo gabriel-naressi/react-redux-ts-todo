@@ -1,11 +1,14 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 import todoReducer from '../features/todo/todoSlice'
 import counterReducer from '../features/counter/counterSlice'
+import visibilityFilterReducer from '../features/filter/filterSlice'
 
 export const store = configureStore({
   reducer: {
     todo: todoReducer,
-    counter: counterReducer
+    counter: counterReducer,
+    visibilityFilter: visibilityFilterReducer
   },
 })
 
@@ -16,3 +19,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
+
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
