@@ -1,14 +1,20 @@
 import React from 'react'
 import { Todo } from '../../commons/types'
 
-interface TodoProps {
+interface TodoItemProps {
   todo: Todo,
+  onClickProp: (id: string) => void
 }
 
-const TodoItem = ({ todo } : TodoProps) => (
-  <li
-    style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-  >{todo.title}</li>
-)
+const TodoItem = ({ todo, onClickProp } : TodoItemProps) => {
+  return (
+    <li
+      style={{ textDecoration: todo.completed ? 'line-through' : 'none', marginBottom: 3}}
+    >
+      <button style={{marginRight: 15}} onClick={() => onClickProp(todo.id)}>X</button>
+      {todo.title}
+    </li>
+  )
+}
 
 export default TodoItem

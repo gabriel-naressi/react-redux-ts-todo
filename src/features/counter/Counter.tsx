@@ -1,6 +1,5 @@
 import React from 'react'
-import { connect, ConnectedProps } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { connect, ConnectedProps, useSelector } from 'react-redux'
 import { increment, selectCount } from '../counter/counterSlice'
 
 const mapDispatch = { increment }

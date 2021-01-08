@@ -14,13 +14,15 @@ const todosAdapter = createEntityAdapter<Todo>()
 interface TodoState {
   entities: Todo[],
   status: string,
-  creating: boolean,
+  created: boolean,
+  creating: boolean
 }
 
 const initialState = todosAdapter.getInitialState({
   entities: {},
   status: 'idle',
-  creating: false,
+  created: false,
+  creating: false
 } as TodoState)
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
@@ -39,12 +41,16 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     todoAdded: todosAdapter.addOne,
+    todoDeleted: todosAdapter.removeOne,
     toggleTodo(state, action: PayloadAction<string>) {
       const todo = state.entities.find((todo : Todo) => todo.id === action.payload)
       if (todo) {
         todo.completed = !todo.completed
       }
     },
+    reset: (state) => {
+      state.created = false
+    }
   },
   extraReducers: builder => {
     builder
@@ -61,11 +67,12 @@ export const todoSlice = createSlice({
       .addCase(saveTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
         todosAdapter.addOne(state, action.payload)
         state.creating = false
+        state.created = true
       })
   }
 })
 
-export const { todoAdded, toggleTodo } = todoSlice.actions
+export const { todoAdded, toggleTodo, todoDeleted, reset } = todoSlice.actions
 
 //selectors.selectAll
 // Alias selectTodos for 'selectAll' created selector
@@ -74,6 +81,8 @@ export const {
 } = todosAdapter.getSelectors<RootState>(
   (state) => state.todo
 )
+
+export const todoWasCreated = (state: RootState) => state.todo.created;
 
 /*This export also coulde be:
 
