@@ -38,7 +38,6 @@ const initialState = todosAdapter.getInitialState({
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
   const response = await service.getTodos()
   const data = (await response.json())
-  //TODO return (await response.json()) as Returned
   const normalized = normalize<
     any,
     {

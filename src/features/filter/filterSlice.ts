@@ -37,4 +37,11 @@ export const selectVisibleTodos = createSelector(
   }
 )
 
+export const selectByDescription = createSelector(
+  [selectVisibleTodos, (state: RootState, searchText: string) => searchText],
+  (todos: Todo[], value: string) => {
+    return todos.filter((todo) => todo.title.includes(value))
+  }
+)
+
 export default filtersSlice.reducer
