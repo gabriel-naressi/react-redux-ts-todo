@@ -6,6 +6,10 @@ import {
 } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 import TodoService from '../../services/todo/TodoService'
+import { normalize, schema } from 'normalizr'
+
+const todoSchema = new schema.Entity('todos')
+const todoListSchema = [todoSchema]
 
 const service = new TodoService()
 const todosAdapter = createEntityAdapter<Todo>()
@@ -33,13 +37,27 @@ const initialState = todosAdapter.getInitialState({
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
   const response = await service.getTodos()
+  const data = (await response.json())
   //TODO return (await response.json()) as Returned
-  return (await response.json())
+  const normalized = normalize<
+    any,
+    {
+      todos: { [key: string]: Todo }
+    }
+  >(data, todoListSchema)
+  return normalized.entities
 })
 
 export const saveTodo = createAsyncThunk('todos/saveNewTodo', async (todo: Todo)  => {
   const response = await service.saveTodo(todo)
-  return (await response.json())
+  const data = (await response.json())
+  const normalized = normalize<
+    any,
+    {
+      todos: { [key: string]: Todo }
+    }
+  >(data, todoSchema)
+  return normalized;
 })
 
 export const todoSlice = createSlice({
@@ -63,15 +81,15 @@ export const todoSlice = createSlice({
       .addCase(fetchTodos.pending, (state, action) => {
         state.status = 'loading'
       })
-      .addCase(fetchTodos.fulfilled, (state, action: PayloadAction<Todo[]>) => {
-        todosAdapter.setAll(state, action.payload)
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        todosAdapter.setAll(state, action.payload.todos)
         state.status = 'idle'
       })
       .addCase(saveTodo.pending, (state, action) => {
         state.creating = true
       })
-      .addCase(saveTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
-        todosAdapter.addOne(state, action.payload)
+      .addCase(saveTodo.fulfilled, (state, action) => {
+        todosAdapter.addOne(state, action.payload.entities.todos[action.payload.result])
         state.creating = false
         state.created = true
       })
