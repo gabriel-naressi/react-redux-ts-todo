@@ -2,7 +2,7 @@ import { nanoid } from '@reduxjs/toolkit'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { fetchTodos, todoAdded, saveTodo, todoWasCreated, reset, creatingTodo} from './todoSlice'
+import { fetchTodos, todoAdded, saveTodo, todoWasCreated, todoSliceReseted, creatingTodo} from './todoSlice'
 
 const NewTodo = () => {
   const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const NewTodo = () => {
   useEffect(() => {
     if (created) {
       history.push('/counter')
-      dispatch(reset())
+      dispatch(todoSliceReseted())
     }
   }, [dispatch, history, created])
 

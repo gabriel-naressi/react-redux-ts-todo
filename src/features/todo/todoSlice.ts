@@ -28,7 +28,7 @@ interface TodoState {
   creating: boolean
 }
 
-const initialState = todosAdapter.getInitialState({
+const initialState = () => todosAdapter.getInitialState({
   entities: {},
   status: 'idle',
   created: false,
@@ -61,7 +61,7 @@ export const saveTodo = createAsyncThunk('todos/saveNewTodo', async (todo: Todo)
 
 export const todoSlice = createSlice({
   name: 'todo',
-  initialState,
+  initialState: initialState(),
   reducers: {
     todoAdded: todosAdapter.addOne,
     todoDeleted: todosAdapter.removeOne,
@@ -71,9 +71,7 @@ export const todoSlice = createSlice({
         todo.completed = !todo.completed
       }
     },
-    reset: (state) => {
-      state.created = false
-    }
+    todoSliceReseted: (state) => initialState()
   },
   extraReducers: builder => {
     builder
@@ -95,7 +93,7 @@ export const todoSlice = createSlice({
   }
 })
 
-export const { todoAdded, toggleTodo, todoDeleted, reset } = todoSlice.actions
+export const { todoAdded, toggleTodo, todoDeleted, todoSliceReseted } = todoSlice.actions
 
 //selectors.selectAll
 // Alias selectTodos for 'selectAll' created selector
