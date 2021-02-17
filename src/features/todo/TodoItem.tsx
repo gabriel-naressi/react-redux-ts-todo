@@ -1,17 +1,15 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { todoDeleted } from './todoSlice'
 import { Todo } from './todoSlice'
 
-interface TodoItemProps {
-  todo: Todo,
-  onClickProp: (id: string) => void
-}
-
-const TodoItem = ({ todo, onClickProp } : TodoItemProps) => {
+const TodoItem = ({ todo } : { todo: Todo}) => {
+  const dispatch = useDispatch()
   return (
     <li
       style={{ textDecoration: todo.completed ? 'line-through' : 'none', marginBottom: 3}}
     >
-      <button style={{marginRight: 15}} onClick={() => onClickProp(todo.id)}>X</button>
+      <button style={{marginRight: 15}} onClick={() => dispatch(todoDeleted(todo.id))}>X</button>
       {todo.title}
     </li>
   )
