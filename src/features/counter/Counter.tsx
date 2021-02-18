@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '../../app/store'
-import { increment, counterSelector } from '../counter/counterSlice'
+import { increment, counterSelector } from './counterSlice'
 
 const Counter = () => {
   const dispatch = useAppDispatch()

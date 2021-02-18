@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from 'react'
 import TodoItem from './TodoItem'
 import { useSelector } from 'react-redux'
-import { todosSelector } from '../todo/todoSlice'
+import { todosSelector } from './todoSlice'
 import { selectByDescription } from '../filter/filterSlice'
 import { Todo } from './todoSlice'
 import { RootState } from '../../app/store'

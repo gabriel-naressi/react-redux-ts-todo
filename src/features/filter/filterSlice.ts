@@ -1,6 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { selectTodos, Todo } from '../../features/todo/todoSlice'
+import { selectTodos, Todo } from '../todo/todoSlice'
 
 export enum VisibilityFilters {
   SHOW_ALL = 'SHOW_ALL',
