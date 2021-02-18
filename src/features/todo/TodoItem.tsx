@@ -1,10 +1,10 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../app/store'
 import { todoDeleted } from './todoSlice'
 import { Todo } from './todoSlice'
 
 const TodoItem = ({ todo } : { todo: Todo}) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   return (
     <li
       style={{ textDecoration: todo.completed ? 'line-through' : 'none', marginBottom: 3}}

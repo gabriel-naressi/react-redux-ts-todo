@@ -1,11 +1,12 @@
 import { nanoid } from '@reduxjs/toolkit'
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { fetchTodos, todoAdded, saveTodo, todoWasCreated, todoSliceReseted, creatingTodo} from './todoSlice'
+import { useAppDispatch } from '../../app/store'
 
 const NewTodo = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const history = useHistory()
 
   const creating = useSelector(creatingTodo)

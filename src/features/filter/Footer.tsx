@@ -1,10 +1,11 @@
 import React from 'react'
 import { selectFilter } from '../filter/filterSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { setFilter, VisibilityFilters }  from '../filter/filterSlice'
+import { useAppDispatch } from '../../app/store'
 
 const Footer = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const active = useSelector(selectFilter);
   return (
     <div>
