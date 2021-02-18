@@ -28,12 +28,12 @@ const initialState = () => todosAdapter.getInitialState({
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
   const response = await service.getTodos()
-  return await response.json()
+  return await response.json() as Todo[]
 })
 
 export const saveTodo = createAsyncThunk('todos/saveNewTodo', async (todo: Todo)  => {
   const response = await service.saveTodo(todo)
-  return await response.json()
+  return await response.json() as Todo
 })
 
 export const todoSlice = createSlice({
