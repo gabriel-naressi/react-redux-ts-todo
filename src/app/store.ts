@@ -20,5 +20,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >
 
-export type AppDispatch = typeof store.dispatch
+type AppDispatch = typeof store.dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>()
