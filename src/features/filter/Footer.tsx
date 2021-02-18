@@ -1,7 +1,7 @@
 import React from 'react'
-import { selectFilter } from '../filter/filterSlice'
+import { selectFilter } from './filterSlice'
 import { useSelector } from 'react-redux'
-import { setFilter, VisibilityFilters }  from '../filter/filterSlice'
+import { setFilter, VisibilityFilters }  from './filterSlice'
 import { useAppDispatch } from '../../app/store'
 
 const Footer = () => {
@@ -25,7 +25,7 @@ const Footer = () => {
         Active
       </button>
       <button
-        style={{marginLeft: '4px' }}
+        style={{ marginLeft: '4px' }}
         onClick={() => dispatch(setFilter(VisibilityFilters.SHOW_COMPLETED))}
         disabled={active === VisibilityFilters.SHOW_COMPLETED}
       >
