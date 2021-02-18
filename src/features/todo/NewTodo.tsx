@@ -1,19 +1,18 @@
 import { nanoid } from '@reduxjs/toolkit'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { fetchTodos, todoAdded, saveTodo, todoWasCreated, todoSliceReseted, creatingTodo} from './todoSlice'
+import { fetchTodos, todoAdded, saveTodo, todoSliceReseted, todosSelector} from './todoSlice'
 import { useAppDispatch } from '../../app/store'
 
 const NewTodo = () => {
   const dispatch = useAppDispatch()
   const history = useHistory()
 
-  const creating = useSelector(creatingTodo)
-  const created = useSelector(todoWasCreated)
+  const { creating, created } = useSelector(todosSelector)
 
   const [todoText, setTodoText] = useState<string>('')
-  const onChange = (e : React.FormEvent<HTMLInputElement>) => setTodoText(e.currentTarget.value)
+  const onChange = (e : FormEvent<HTMLInputElement>) => setTodoText(e.currentTarget.value)
 
   useEffect(() => {
     dispatch(fetchTodos())
@@ -47,7 +46,7 @@ const NewTodo = () => {
   }
 
   return (
-    <form onSubmit={e => { e.preventDefault() }}>
+    <form onSubmit={(e: FormEvent<HTMLFormElement>) => { e.preventDefault() }}>
       Valor: {todoText} <br/>
       <input type="text" onChange={onChange} value={todoText} />
       {creating ? <p>Creating...</p> : <></>}

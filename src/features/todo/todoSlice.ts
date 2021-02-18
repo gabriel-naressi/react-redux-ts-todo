@@ -91,8 +91,6 @@ And the use is:
   const todos = useSelector(selectors.selectAll)
 */
 
-export const todoWasCreated = (state: RootState) => state.todo.created;
-export const creatingTodo = (state: RootState) => state.todo.creating;
-export const todoStatus = (state: RootState) => state.todo.status;
+export const todosSelector = (state: RootState) => state.todo;
 
 export default todoSlice.reducer
